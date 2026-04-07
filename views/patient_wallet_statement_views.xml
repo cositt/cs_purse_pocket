@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_wallet_statement_tree" model="ir.ui.view">
+        <field name="name">patient.wallet.statement.tree</field>
+        <field name="model">patient.wallet.statement</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="patient_id"/>
+                <field name="account_id" optional="hide"/>
+                <field name="opening_balance"/>
+                <field name="closing_balance"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_patient_wallet_statement_form" model="ir.ui.view">
+        <field name="name">patient.wallet.statement.form</field>
+        <field name="model">patient.wallet.statement</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate" type="object" string="Generar" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_liquidate" type="object" string="Liquidar" class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_lock" type="object" string="Bloquear" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,locked"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="patient_id"/>
+                        <field name="account_id" readonly="1"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="opening_balance" readonly="1"/>
+                        <field name="funding_total" readonly="1"/>
+                        <field name="expense_total" readonly="1"/>
+                        <field name="adjustment_total" readonly="1"/>
+                        <field name="closing_balance" readonly="1"/>
+                        <field name="liquidation_move_id" readonly="1"/>
+                        <field name="liquidated_at" readonly="1"/>
+                        <field name="generated_by"/>
+                        <field name="generated_at" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Movimientos">
+                            <field name="line_move_ids" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="account_id"/>
+                                    <field name="move_type"/>
+                                    <field name="amount"/>
+                                    <field name="signed_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_patient_wallet_statement" model="ir.actions.act_window">
+        <field name="name">Liquidaciones</field>
+        <field name="res_model">patient.wallet.statement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

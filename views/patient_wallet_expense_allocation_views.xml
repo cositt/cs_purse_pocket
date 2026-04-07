@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_wallet_expense_allocation_tree" model="ir.ui.view">
+        <field name="name">patient.wallet.expense.allocation.tree</field>
+        <field name="model">patient.wallet.expense.allocation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="description"/>
+                <field name="total_amount"/>
+                <field name="allocation_method"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_patient_wallet_expense_allocation_form" model="ir.ui.view">
+        <field name="name">patient.wallet.expense.allocation.form</field>
+        <field name="model">patient.wallet.expense.allocation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_validate" type="object" string="Validar" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancelar" invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="date"/>
+                        <field name="description"/>
+                        <field name="category_id"/>
+                        <field name="total_amount"/>
+                        <field name="allocation_method"/>
+                        <field name="responsible_id"/>
+                    </group>
+                    <field name="line_ids">
+                        <list editable="bottom">
+                            <field name="patient_id" domain="[('category_id.name', 'ilike', 'paciente')]"/>
+                            <field name="account_id" domain="[('patient_id', '=', patient_id), ('company_id', '=', parent.company_id), ('state', '=', 'open')]"/>
+                            <field name="amount"/>
+                            <field name="percentage" column_invisible="parent.allocation_method != 'percentage'"/>
+                            <field name="status" readonly="1"/>
+                            <field name="wallet_move_id" readonly="1"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_patient_wallet_expense_allocation" model="ir.actions.act_window">
+        <field name="name">Imputaciones de gasto</field>
+        <field name="res_model">patient.wallet.expense.allocation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

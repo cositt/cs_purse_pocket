@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_patient_wallet_root" name="Wallet Pacientes" sequence="30" action="action_patient_wallet_account" web_icon="cs_purse_pocket,static/description/icon.png"/>
+
+    <menuitem id="menu_patient_wallet_accounts" name="Cuentas" parent="menu_patient_wallet_root" action="action_patient_wallet_account" sequence="10"/>
+    <menuitem id="menu_patient_wallet_moves" name="Movimientos" parent="menu_patient_wallet_root" action="action_patient_wallet_move" sequence="20"/>
+    <menuitem id="menu_patient_wallet_fundings" name="Recargas" parent="menu_patient_wallet_root" action="action_patient_wallet_funding" sequence="30"/>
+    <menuitem id="menu_patient_wallet_allocations" name="Imputaciones" parent="menu_patient_wallet_root" action="action_patient_wallet_expense_allocation" sequence="40"/>
+    <menuitem id="menu_patient_wallet_statements" name="Liquidaciones" parent="menu_patient_wallet_root" action="action_patient_wallet_statement" sequence="50"/>
+    <menuitem id="menu_patient_wallet_categories" name="Categorías" parent="menu_patient_wallet_root" action="action_patient_wallet_category" sequence="60"/>
+    <menuitem id="menu_patient_wallet_family_links" name="Vínculos familiares" parent="menu_patient_wallet_root" action="action_patient_wallet_family_link" sequence="70"/>
+</odoo>

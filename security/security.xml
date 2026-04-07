@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_wallet_admin" model="res.groups">
+        <field name="name">Wallet Admin</field>
+    </record>
+
+    <record id="group_wallet_operator" model="res.groups">
+        <field name="name">Wallet Operator</field>
+    </record>
+
+    <record id="group_wallet_readonly" model="res.groups">
+        <field name="name">Wallet Readonly</field>
+    </record>
+
+    <record id="rule_wallet_company_account" model="ir.rule">
+        <field name="name">Wallet Account by Company</field>
+        <field name="model_id" ref="model_patient_wallet_account"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_wallet_admin')), (4, ref('group_wallet_operator')), (4, ref('group_wallet_readonly'))]"/>
+    </record>
+
+    <record id="rule_wallet_company_move" model="ir.rule">
+        <field name="name">Wallet Move by Company</field>
+        <field name="model_id" ref="model_patient_wallet_move"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_wallet_admin')), (4, ref('group_wallet_operator')), (4, ref('group_wallet_readonly'))]"/>
+    </record>
+
+    <record id="rule_wallet_company_family_link" model="ir.rule">
+        <field name="name">Wallet Family Link by Company</field>
+        <field name="model_id" ref="model_patient_wallet_family_link"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_wallet_admin')), (4, ref('group_wallet_operator')), (4, ref('group_wallet_readonly'))]"/>
+    </record>
+</odoo>

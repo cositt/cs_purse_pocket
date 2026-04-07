@@ -1,1 +1,9 @@
-# Paquete de modelos para desarrollo
+from . import patient_wallet_account
+from . import patient_wallet_move
+from . import patient_wallet_funding
+from . import patient_wallet_expense_allocation
+from . import patient_wallet_statement
+from . import patient_wallet_category
+from . import patient_wallet_family_link
+from . import res_partner_wallet_links
+from . import wallet_accounting_settings

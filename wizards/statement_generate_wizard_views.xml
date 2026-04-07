@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_statement_generate_wizard_form" model="ir.ui.view">
+        <field name="name">statement.generate.wizard.form</field>
+        <field name="model">patient.wallet.statement.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar liquidacion">
+                <group>
+                    <field name="patient_id"/>
+                    <field name="account_id" readonly="1"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="action_generate_statement" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_statement_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Generar liquidacion</field>
+        <field name="res_model">patient.wallet.statement.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

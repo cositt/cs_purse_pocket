@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_wallet_account" model="ir.sequence">
+        <field name="name">Patient Wallet Account</field>
+        <field name="code">patient.wallet.account</field>
+        <field name="prefix">WAL/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_wallet_move" model="ir.sequence">
+        <field name="name">Patient Wallet Move</field>
+        <field name="code">patient.wallet.move</field>
+        <field name="prefix">MVE/%(year)s/</field>
+        <field name="padding">6</field>
+    </record>
+    <record id="seq_wallet_funding" model="ir.sequence">
+        <field name="name">Patient Wallet Funding</field>
+        <field name="code">patient.wallet.funding</field>
+        <field name="prefix">FND/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_wallet_allocation" model="ir.sequence">
+        <field name="name">Patient Wallet Allocation</field>
+        <field name="code">patient.wallet.expense.allocation</field>
+        <field name="prefix">ALC/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_wallet_statement" model="ir.sequence">
+        <field name="name">Patient Wallet Statement</field>
+        <field name="code">patient.wallet.statement</field>
+        <field name="prefix">STM/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_wallet_links" model="ir.ui.view">
+        <field name="name">res.partner.form.wallet.links</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Vínculos monedero">
+                    <group col="1" invisible="not is_wallet_patient">
+                        <separator string="Vinculación:"/>
+                        <field name="family_link_as_patient_ids" context="{'default_patient_id': id}" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="payer_id" domain="[('category_id.name', 'ilike', 'famil')]"/>
+                                <field name="relationship"/>
+                                <field name="active"/>
+                                <field name="company_id" optional="hide"/>
+                                <field name="notes" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <group col="1" invisible="not is_wallet_family">
+                        <separator string="Vinculación:"/>
+                        <field name="family_link_as_payer_ids" context="{'default_payer_id': id}" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="patient_id" domain="[('category_id.name', 'ilike', 'paciente')]"/>
+                                <field name="relationship"/>
+                                <field name="active"/>
+                                <field name="company_id" optional="hide"/>
+                                <field name="notes" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

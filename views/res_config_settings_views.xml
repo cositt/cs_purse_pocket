@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_wallet" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.wallet</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Monedero Pacientes" name="wallet_settings">
+                    <block title="Contabilidad de fondos de terceros">
+                        <setting string="Cuenta de pasivo de monedero">
+                            <field name="wallet_liability_account_id"/>
+                        </setting>
+                        <setting string="Cuenta de banco/caja de monedero">
+                            <field name="wallet_bank_account_id"/>
+                        </setting>
+                        <setting string="Diario de monedero">
+                            <field name="wallet_journal_id"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

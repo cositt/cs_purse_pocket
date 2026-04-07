@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_wallet_funding_tree" model="ir.ui.view">
+        <field name="name">patient.wallet.funding.tree</field>
+        <field name="model">patient.wallet.funding</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="patient_id"/>
+                <field name="payer_id"/>
+                <field name="account_id"/>
+                <field name="amount"/>
+                <field name="payment_method"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_patient_wallet_funding_form" model="ir.ui.view">
+        <field name="name">patient.wallet.funding.form</field>
+        <field name="model">patient.wallet.funding</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancelar" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="date"/>
+                        <field name="patient_id" domain="[('category_id.name', 'ilike', 'paciente')]"/>
+                        <field name="payer_id"/>
+                        <field name="account_id" domain="[('patient_id', '=', patient_id), ('company_id', '=', company_id), ('state', '=', 'open')]"/>
+                        <field name="amount"/>
+                        <field name="payment_method"/>
+                        <field name="external_reference"/>
+                        <field name="responsible_id"/>
+                        <field name="wallet_move_id" readonly="1"/>
+                        <field name="account_move_id"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_patient_wallet_funding" model="ir.actions.act_window">
+        <field name="name">Recargas</field>
+        <field name="res_model">patient.wallet.funding</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

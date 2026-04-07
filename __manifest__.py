@@ -1,14 +1,30 @@
 {
-    "name": "Dev Base",
+    "name": "CS Patient Wallet",
     "version": "19.0.1.0.0",
-    "summary": "Modulo base para desarrollo local",
-    "category": "Tools",
-    "author": "CentroSanitario",
+    "summary": "Fondos de terceros para pacientes con wallet interno",
+    "category": "Accounting",
+    "author": "Cositt Technologies",
+    "website": "https://www.cositt.com",
     "license": "LGPL-3",
-    "depends": ["base"],
+    "depends": ["base", "mail", "contacts", "account", "web"],
+    "images": ["static/description/icon.png"],
     "data": [
-        "views/dev_base_views.xml"
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "data/sequence.xml",
+        "views/patient_wallet_category_views.xml",
+        "views/patient_wallet_account_views.xml",
+        "views/patient_wallet_move_views.xml",
+        "views/patient_wallet_funding_views.xml",
+        "views/patient_wallet_expense_allocation_views.xml",
+        "views/patient_wallet_statement_views.xml",
+        "views/patient_wallet_family_link_views.xml",
+        "views/res_partner_wallet_links_views.xml",
+        "views/res_config_settings_views.xml",
+        "wizards/expense_allocation_wizard_views.xml",
+        "wizards/statement_generate_wizard_views.xml",
+        "views/menu_views.xml"
     ],
     "installable": True,
-    "application": False
+    "application": True,
 }
