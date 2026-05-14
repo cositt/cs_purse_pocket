@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Las plantillas de WhatsApp se crean en estado 'draft'.
+        Para producción: ir a WhatsApp > Plantillas, completar la cuenta
+        Meta Business y enviar a aprobación desde la UI de Odoo.
+        Las variables {{1}}, {{2}}... se rellenan automáticamente desde el cron.
+    -->
+
+    <record id="whatsapp_template_low_balance" model="whatsapp.template">
+        <field name="name">Alerta Saldo Bajo Monedero</field>
+        <field name="template_name">cs_wallet_low_balance</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="lang_code">es</field>
+        <field name="template_type">utility</field>
+        <field name="status">draft</field>
+        <field name="body">Hola {{1}}, el saldo del monedero de {{2}} ha bajado a {{3}} €. Por favor, realice una recarga para garantizar la continuidad de los servicios.</field>
+    </record>
+
+    <record id="whatsapp_template_weekly_statement" model="whatsapp.template">
+        <field name="name">Extracto Semanal Monedero</field>
+        <field name="template_name">cs_wallet_weekly_statement</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="lang_code">es</field>
+        <field name="template_type">utility</field>
+        <field name="status">draft</field>
+        <field name="body">Hola {{1}}, extracto semanal de {{2}} ({{3}} al {{4}}): saldo actual {{5}} €. Puede consultar el detalle en el portal del centro.</field>
+    </record>
+
+</odoo>

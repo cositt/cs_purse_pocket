@@ -24,6 +24,12 @@ class PatientWalletFamilyLink(models.Model):
         domain="[('category_id.name', 'ilike', 'famil')]",
     )
     relationship = fields.Char(string="Parentesco")
+    notification_channel = fields.Selection(
+        [("email", "Solo email"), ("whatsapp", "Solo WhatsApp"), ("both", "Email y WhatsApp")],
+        string="Canal de notificación",
+        default="email",
+        required=True,
+    )
     notes = fields.Text(string="Notas")
 
     _sql_constraints = [

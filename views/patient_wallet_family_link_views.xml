@@ -8,6 +8,7 @@
                 <field name="patient_id"/>
                 <field name="payer_id"/>
                 <field name="relationship"/>
+                <field name="notification_channel"/>
                 <field name="company_id"/>
                 <field name="active"/>
             </list>
@@ -24,6 +25,7 @@
                         <field name="patient_id"/>
                         <field name="payer_id"/>
                         <field name="relationship"/>
+                        <field name="notification_channel"/>
                         <field name="company_id"/>
                         <field name="active"/>
                         <field name="notes"/>

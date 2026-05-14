@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_low_balance_alert" model="ir.cron">
+        <field name="name">Monedero: Alerta de saldo bajo</field>
+        <field name="model_id" ref="cs_purse_pocket.model_patient_wallet_account"/>
+        <field name="state">code</field>
+        <field name="code">model._send_low_balance_alerts()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_weekly_statement" model="ir.cron">
+        <field name="name">Monedero: Extracto semanal automático</field>
+        <field name="model_id" ref="cs_purse_pocket.model_patient_wallet_account"/>
+        <field name="state">code</field>
+        <field name="code">model._send_weekly_statements()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

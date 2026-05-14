@@ -51,6 +51,16 @@
                                 </list>
                             </field>
                         </page>
+                        <page string="Alertas y notificaciones">
+                            <group string="Alerta de saldo bajo">
+                                <field name="low_balance_alert_enabled"/>
+                                <field name="low_balance_threshold" invisible="not low_balance_alert_enabled"/>
+                                <field name="last_low_balance_alert" readonly="1"/>
+                            </group>
+                            <group string="Extracto automático">
+                                <field name="auto_statement_enabled"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

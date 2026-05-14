@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_template_low_balance" model="mail.template">
+        <field name="name">Monedero: Alerta saldo bajo</field>
+        <field name="model_id" ref="cs_purse_pocket.model_patient_wallet_account"/>
+        <field name="subject">Alerta: Saldo bajo del monedero de ${object.patient_id.name}</field>
+        <field name="email_from">${(object.company_id.email or user.email) | safe}</field>
+        <field name="email_to">${object.responsible_id.email or ''}</field>
+        <field name="body_html"><![CDATA[
+<p>Estimado/a <strong>${ctx.get('payer_name', 'familiar')}</strong>,</p>
+
+<p>Le informamos que el saldo del monedero de <strong>${object.patient_id.name}</strong>
+ha bajado del umbral configurado.</p>
+
+<table style="border-collapse:collapse;width:100%;max-width:500px;">
+    <tr style="background:#f5f5f5;">
+        <td style="padding:8px;border:1px solid #ddd;"><strong>Saldo actual</strong></td>
+        <td style="padding:8px;border:1px solid #ddd;color:#d9534f;">
+            <strong>${'%.2f' % object.balance} ${object.currency_id.symbol}</strong>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:8px;border:1px solid #ddd;">Umbral de alerta</td>
+        <td style="padding:8px;border:1px solid #ddd;">
+            ${'%.2f' % object.low_balance_threshold} ${object.currency_id.symbol}
+        </td>
+    </tr>
+    <tr style="background:#f5f5f5;">
+        <td style="padding:8px;border:1px solid #ddd;">Residente</td>
+        <td style="padding:8px;border:1px solid #ddd;">${object.patient_id.name}</td>
+    </tr>
+</table>
+
+<p style="margin-top:16px;">Por favor, realice una recarga lo antes posible para garantizar la continuidad de los servicios.</p>
+
+<p>Si tiene alguna duda puede ponerse en contacto con nosotros.</p>
+
+<p>Un saludo,<br/><strong>${object.company_id.name}</strong></p>
+        ]]></field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_weekly_statement" model="mail.template">
+        <field name="name">Monedero: Extracto semanal</field>
+        <field name="model_id" ref="cs_purse_pocket.model_patient_wallet_account"/>
+        <field name="subject">Extracto semanal del monedero de ${object.patient_id.name}</field>
+        <field name="email_from">${(object.company_id.email or user.email) | safe}</field>
+        <field name="email_to">${object.responsible_id.email or ''}</field>
+        <field name="body_html"><![CDATA[
+<p>Estimado/a <strong>${ctx.get('payer_name', 'familiar')}</strong>,</p>
+
+<p>Le enviamos el extracto semanal del monedero de <strong>${object.patient_id.name}</strong>
+% if ctx.get('stmt_date_from') and ctx.get('stmt_date_to'):
+correspondiente al periodo del <strong>${ctx.get('stmt_date_from')}</strong>
+al <strong>${ctx.get('stmt_date_to')}</strong>.
+% endif
+</p>
+
+<table style="border-collapse:collapse;width:100%;max-width:500px;">
+    <tr style="background:#4a90d9;color:#fff;">
+        <td style="padding:8px;" colspan="2"><strong>Resumen del periodo</strong></td>
+    </tr>
+    <tr style="background:#f5f5f5;">
+        <td style="padding:8px;border:1px solid #ddd;">Saldo actual</td>
+        <td style="padding:8px;border:1px solid #ddd;">
+            <strong>${'%.2f' % object.balance} ${object.currency_id.symbol}</strong>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:8px;border:1px solid #ddd;">Total recargas</td>
+        <td style="padding:8px;border:1px solid #ddd;">
+            ${'%.2f' % object.total_recargas} ${object.currency_id.symbol}
+        </td>
+    </tr>
+    <tr style="background:#f5f5f5;">
+        <td style="padding:8px;border:1px solid #ddd;">Total consumos</td>
+        <td style="padding:8px;border:1px solid #ddd;">
+            ${'%.2f' % object.total_consumos} ${object.currency_id.symbol}
+        </td>
+    </tr>
+</table>
+
+<p style="margin-top:16px;">Para consultar el detalle completo de los movimientos puede acceder al portal del centro.</p>
+
+<p>Un saludo,<br/><strong>${object.company_id.name}</strong></p>
+        ]]></field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>
