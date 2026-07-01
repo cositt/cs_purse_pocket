@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 class PatientWalletFamilyLink(models.Model):
     _name = "patient.wallet.family.link"
     _description = "Vínculo familiar paciente-pagador"
+    _inherit = ["cs.family.relationship.mixin"]
     _order = "patient_id, payer_id"
 
     active = fields.Boolean(string="Activo", default=True)
@@ -23,7 +24,15 @@ class PatientWalletFamilyLink(models.Model):
         index=True,
         domain="[('category_id.name', 'ilike', 'famil')]",
     )
-    relationship = fields.Char(string="Parentesco")
+    relationship = fields.Char(
+        string="Parentesco",
+        help="Parentesco del familiar respecto al paciente (p. ej. Padre, Madre, Tutor).",
+    )
+    relationship_reciprocal = fields.Char(
+        string="Parentesco (desde familiar)",
+        compute="_compute_relationship_reciprocal",
+        help="Parentesco del paciente respecto al familiar (p. ej. Hijo/a).",
+    )
     notification_channel = fields.Selection(
         [("email", "Solo email"), ("whatsapp", "Solo WhatsApp"), ("both", "Email y WhatsApp")],
         string="Canal de notificación",
@@ -45,6 +54,11 @@ class PatientWalletFamilyLink(models.Model):
         for rec in self:
             result.append((rec.id, _("%s -> %s") % (rec.patient_id.name, rec.payer_id.name)))
         return result
+
+    @api.depends("relationship")
+    def _compute_relationship_reciprocal(self):
+        for rec in self:
+            rec.relationship_reciprocal = rec.reciprocal_family_relationship(rec.relationship)
 
     @api.constrains("patient_id", "payer_id")
     def _check_patient_payer_not_same(self):

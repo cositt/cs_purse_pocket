@@ -1,3 +1,4 @@
+from . import family_relationship_mixin
 from . import patient_wallet_account
 from . import patient_wallet_move
 from . import patient_wallet_funding
