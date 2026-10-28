@@ -251,7 +251,7 @@ class PatientWalletAccount(models.Model):
                     email_values={"email_to": payer.email, "email_cc": False},
                     force_send=True,
                 )
-            if link.notification_channel in ("whatsapp", "both") and payer.mobile and wa_tmpl:
+            if link.notification_channel in ("whatsapp", "both") and payer.phone and wa_tmpl:
                 self._send_whatsapp_via_template(
                     payer=payer,
                     template=wa_tmpl,
@@ -281,7 +281,7 @@ class PatientWalletAccount(models.Model):
                     email_values={"email_to": payer.email, "email_cc": False},
                     force_send=True,
                 )
-            if link.notification_channel in ("whatsapp", "both") and payer.mobile and wa_tmpl:
+            if link.notification_channel in ("whatsapp", "both") and payer.phone and wa_tmpl:
                 self._send_whatsapp_via_template(
                     payer=payer,
                     template=wa_tmpl,
@@ -298,13 +298,13 @@ class PatientWalletAccount(models.Model):
         """Crea y encola un mensaje WhatsApp para un familiar pagador."""
         self.ensure_one()
         WaMessage = self.env.get("whatsapp.message")
-        if WaMessage is None or not payer.mobile:
+        if WaMessage is None or not payer.phone:
             return
-        notice = _("Notificación WhatsApp de monedero enviada a %(name)s (%(mobile)s)", name=payer.name, mobile=payer.mobile)
+        notice = _("Notificación WhatsApp de monedero enviada a %(name)s (%(phone)s)", name=payer.name, phone=payer.phone)
         mail_msg = payer._message_log(body=notice)
         WaMessage.create({
             "mail_message_id": mail_msg.id,
-            "mobile_number": payer.mobile,
+            "mobile_number": payer.phone,
             "wa_template_id": template.id,
             "wa_account_id": template.wa_account_id.id if template.wa_account_id else False,
             "free_text_json": free_text_json,
