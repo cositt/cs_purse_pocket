@@ -4,9 +4,16 @@
         <field name="name">patient.wallet.account.tree</field>
         <field name="model">patient.wallet.account</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-success="collection_method == 'sepa'"
+                  decoration-info="collection_method == 'transfer'"
+                  decoration-warning="collection_method == 'cash'"
+                  decoration-muted="collection_method in ('card', 'other')">
                 <field name="name"/>
                 <field name="patient_id"/>
+                <field name="collection_method" widget="badge"
+                       decoration-success="collection_method == 'sepa'"
+                       decoration-info="collection_method == 'transfer'"
+                       decoration-warning="collection_method == 'cash'"/>
                 <field name="company_id"/>
                 <field name="balance"/>
                 <field name="total_recargas"/>
@@ -29,6 +36,7 @@
                         <field name="company_id"/>
                         <field name="center_id"/>
                         <field name="responsible_id"/>
+                        <field name="collection_method"/>
                         <field name="balance" readonly="1"/>
                         <field name="total_recargas" readonly="1"/>
                         <field name="total_consumos" readonly="1"/>
