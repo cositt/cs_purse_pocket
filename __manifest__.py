@@ -1,6 +1,6 @@
 {
     "name": "CS Patient Wallet",
-    "version": "19.0.2.0.0",
+    "version": "19.0.2.1.0",
     "summary": "Fondos de terceros para pacientes con wallet interno",
     "category": "Accounting",
     "author": "Cositt Technologies",

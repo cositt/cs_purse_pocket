@@ -1,8 +1,11 @@
 from unittest.mock import patch
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+# post_install: in a copy of production some company-dependent partner columns
+# (e.g. group_rfq) are only filled once every module is loaded.
+@tagged('post_install', '-at_install')
 class TestWalletWhatsappPhone(TransactionCase):
     """Odoo 19 eliminó res.partner.mobile: los avisos WhatsApp usan el teléfono."""
 

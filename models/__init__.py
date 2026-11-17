@@ -8,3 +8,4 @@ from . import patient_wallet_category
 from . import patient_wallet_family_link
 from . import res_partner_wallet_links
 from . import wallet_accounting_settings
+from . import wallet_sequences
