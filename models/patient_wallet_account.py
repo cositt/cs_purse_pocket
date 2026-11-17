@@ -3,6 +3,8 @@ from datetime import timedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
+from .patient_wallet_funding import PAYMENT_METHODS
+
 
 class PatientWalletAccount(models.Model):
     _name = "patient.wallet.account"
@@ -16,6 +18,12 @@ class PatientWalletAccount(models.Model):
     center_id = fields.Many2one("res.partner", string="Centro", index=True)
     patient_id = fields.Many2one("res.partner", string="Paciente", required=True, index=True, tracking=True)
     currency_id = fields.Many2one("res.currency", related="company_id.currency_id", store=True)
+    collection_method = fields.Selection(
+        PAYMENT_METHODS,
+        string="Forma de cobro habitual",
+        tracking=True,
+        help="Se propone en cada recarga y colorea el monedero en la lista.",
+    )
     allow_negative = fields.Boolean(string="Permitir saldo negativo", default=False)
     negative_limit = fields.Monetary(string="Límite negativo", default=0.0, currency_field="currency_id")
     move_ids = fields.One2many("patient.wallet.move", "account_id")

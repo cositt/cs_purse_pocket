@@ -2,6 +2,15 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
+PAYMENT_METHODS = [
+    ("cash", "Efectivo"),
+    ("transfer", "Transferencia"),
+    ("sepa", "Domiciliación (SEPA)"),
+    ("card", "Tarjeta"),
+    ("other", "Otro"),
+]
+
+
 class PatientWalletFunding(models.Model):
     _name = "patient.wallet.funding"
     _description = "Patient Wallet Funding"
@@ -40,7 +49,7 @@ class PatientWalletFunding(models.Model):
     amount = fields.Monetary(string="Importe", required=True)
     currency_id = fields.Many2one("res.currency", related="company_id.currency_id", store=True)
     payment_method = fields.Selection(
-        [("cash", "Efectivo"), ("transfer", "Transferencia"), ("card", "Tarjeta"), ("other", "Otro")],
+        PAYMENT_METHODS,
         string="Método de pago",
         required=True,
         default="transfer",
@@ -118,10 +127,16 @@ class PatientWalletFunding(models.Model):
             )
             rec.account_id = account
             rec.payer_id = rec.patient_id
+            if account.collection_method:
+                rec.payment_method = account.collection_method
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            if not vals.get("payment_method") and vals.get("account_id"):
+                account = self.env["patient.wallet.account"].browse(vals["account_id"])
+                if account.collection_method:
+                    vals["payment_method"] = account.collection_method
             if vals.get("name") in (False, "New", _("New")):
                 vals["name"] = self.env["ir.sequence"].next_by_code("patient.wallet.funding") or _("New")
             if vals.get("patient_id") and not vals.get("account_id"):

@@ -4,14 +4,19 @@
         <field name="name">patient.wallet.funding.tree</field>
         <field name="model">patient.wallet.funding</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-success="payment_method == 'sepa'"
+                  decoration-info="payment_method == 'transfer'"
+                  decoration-warning="payment_method == 'cash'">
                 <field name="name"/>
                 <field name="date"/>
                 <field name="patient_id"/>
                 <field name="payer_id"/>
                 <field name="account_id"/>
                 <field name="amount"/>
-                <field name="payment_method"/>
+                <field name="payment_method" widget="badge"
+                       decoration-success="payment_method == 'sepa'"
+                       decoration-info="payment_method == 'transfer'"
+                       decoration-warning="payment_method == 'cash'"/>
                 <field name="state"/>
             </list>
         </field>
